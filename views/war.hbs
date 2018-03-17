@@ -1,0 +1,76 @@
+
+<div class="row">
+  <div class="col-4">
+    <div class="table-heading">
+      <h3 class="mt-5">Create New War</h3>
+    </div>
+    <form class="form-container" method="POST" action="wars/add" enctype="application/x-www-form-urlencoded">
+      <div class="form-group">
+        <label for="coinname">Coin One</label>
+        <select class="custom-select" name="coin_one" required>
+          <option value="" selected>-- Select Coin --</option>
+          {{#if coins}}
+            {{#each coins}}
+              <option value="{{ this._id }}">{{ this.coin_name }} ({{ this.coin_symbol }})</option>
+            {{/each}}
+          {{/if}}
+        </select>
+        <small id="emailHelp" class="form-text text-muted">Select the first coin</small>
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">Coin Symbol</label>
+        <select class="custom-select" name="coin_two" required>
+          <option value="" selected>-- Select Two --</option>
+          {{#if coins}}
+            {{#each coins}}
+              <option value="{{ this._id }}">{{ this.coin_name }} ({{ this.coin_symbol }})</option>
+            {{/each}}
+          {{/if}}
+        </select>
+        <small id="emailHelp" class="form-text text-muted">Select the second coin</small>
+      </div>
+      <button type="submit" class="btn btn-primary">Add War</button>
+    </form>
+  </div>
+  <div class="col-8">
+    <div class="table-heading">
+      <h3 class="mt-5">List of Wars</h3>
+    </div>
+    <table class="table table-hover table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Coin One</th>
+          <th scope="col">Coin Two</th>
+          <th scope="col">From Block</th>
+          <th scope="col">To Block</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#if wars }}
+          {{#each wars}}
+            <tr>
+              <th scope="row">{{@index}}</th>
+              <td><a href="#">{{ this.coin_one.coin_symbol }}</a></td>
+              <td><a href="#">{{ this.coin_two.coin_symbol }}</a></td>
+              <td>0</td>
+              <td>0</td>
+              <th>
+                {{#if this.isOnGoing}}
+                  <button type="button" disabled class="btn btn-outline-secondary">On Going</button></th>
+                {{else}}
+                  <a href="#" class="btn btn-outline-success">Start War</a></th>
+                {{/if}}
+            </tr>
+          {{/each}}
+        {{else}}
+          <div class="alert alert-warning" role="alert">
+            No wars are on going at the moment !
+          </div>
+        {{/if}}
+      </tbody>
+      <tfoot>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,62 @@
+
+<div class="row">
+  <div class="col-4">
+    <div class="table-heading">
+      <h3 class="mt-5">Add New Coin</h3>
+    </div>
+    <form class="form-container" method="POST" action="coins/add" enctype="application/x-www-form-urlencoded">
+      <div class="form-group">
+        <label for="coinname">Coin Name</label>
+        <input type="text" class="form-control" name="coin_name" aria-describedby="emailHelp" placeholder="coin name ..." required>
+        <small id="emailHelp" class="form-text text-muted">Please ensure that the coin name is unique</small>
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">Coin Symbol</label>
+        <input type="text" class="form-control" name="coin_symbol" placeholder="coin symbol ..." required>
+        <small id="emailHelp" class="form-text text-muted">Please ensure that the coin symbol is unique</small>
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">Address</label>
+        <input type="text" class="form-control" name="coin_address" placeholder="coin address ..." required>
+        <small id="emailHelp" class="form-text text-muted">Specify coin address</small>
+      </div>
+      <button type="submit" class="btn btn-primary">Add Coin</button>
+    </form>
+  </div>
+  <div class="col-8">
+    <div class="table-heading">
+      <h3 class="mt-5">List of Coins</h3>
+    </div>
+    <table class="table table-hover table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Coin Name</th>
+          <th scope="col">Symbol</th>
+          <th scope="col">Address</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#if coins }}
+          {{#each coins}}
+            <tr>
+              <th scope="row">{{@index}}</th>
+              <td>{{ this.coin_name }}</td>
+              <td><a href="#">{{ this.coin_symbol }}</a></td>
+              <td>{{ this.coin_address }}</td>
+              <td>
+                <a href="coins/delete/{{ this._id }}" class="btn btn-outline-danger">Delete</a>
+              </td>
+            </tr>
+          {{/each}}
+        {{else}}
+          <div class="alert alert-warning" role="alert">
+            No coins are present at the moment !
+          </div>
+        {{/if}}
+      </tbody>
+      <tfoot>
+    </table>
+  </div>
+</div>
