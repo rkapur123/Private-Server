@@ -1,0 +1,27 @@
+{
+  "name": "coinwarserver",
+  "version": "1.0.0",
+  "description": "Private server for coinwar ethereum game",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rkapurbh/Private-Server.git"
+  },
+  "keywords": [
+    "coinwar",
+    "ethereum"
+  ],
+  "author": "Rahul Sunny",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rkapurbh/Private-Server/issues"
+  },
+  "homepage": "https://github.com/rkapurbh/Private-Server#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
