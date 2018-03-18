@@ -2,7 +2,7 @@
 <div class="row">
   <div class="col-4">
     <div class="table-heading">
-      <h3 class="mt-5">Create New War</h3>
+      <h3>Create New War</h3>
     </div>
     <form class="form-container" method="POST" action="wars/add" enctype="application/x-www-form-urlencoded">
       <div class="form-group">
@@ -34,7 +34,7 @@
   </div>
   <div class="col-8">
     <div class="table-heading">
-      <h3 class="mt-5">List of Wars</h3>
+      <h3>List of Wars</h3>
     </div>
     <table class="table table-hover table-striped">
       <thead>
@@ -56,12 +56,57 @@
               <td><a href="#">{{ this.coin_two.coin_symbol }}</a></td>
               <td>0</td>
               <td>0</td>
-              <th>
-                {{#if this.isOnGoing}}
-                  <button type="button" disabled class="btn btn-outline-secondary">On Going</button></th>
-                {{else}}
-                  <a href="#" class="btn btn-outline-success">Start War</a></th>
-                {{/if}}
+              {{#if this.isOnGoing}}
+                <th><button type="button" disabled class="btn btn-outline-secondary">On Going</button></th>
+              {{else}}
+                <th>
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal-{{ this._id }}">
+                    Start War
+                  </button>
+                  <a href="wars/delete/{{ this._id }}" class="btn btn-outline-danger">Delete</a>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal-{{ this._id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Start War</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <form class="form-container" method="POST" action="wars/edit" enctype="application/x-www-form-urlencoded">
+                          <div class="modal-body">
+                            <p>Start war between <a href="#">{{ this.coin_one.coin_symbol }}</a> - <a href="#">{{ this.coin_two.coin_symbol }}</a></p>
+                            <div class="form-group">
+                              <label for="from_block">From Block</label>
+                              <input type="number" class="form-control" name="from_block" min="0" max="100" required>
+                            </div>
+                            <div class="form-group">
+                              <label for="to_block">To Block</label>
+                              <input type="number" class="form-control" name="to_block" min="0" max="100" required>
+                            </div>
+                            <div class="form-group">
+                              <label for="gas">Gas</label>
+                              <input type="number" class="form-control" name="gas" value="5000000" required>
+                            </div>
+                            <input type="hidden" name="id" value="{{ this._id }}">
+                            <input type="hidden" name="coin1_address" value="{{ this.coin_one.coin_address }}">
+                            <input type="hidden" name="coin2_address" value="{{ this.coin_two.coin_address }}">
+                            <input type="hidden" name="coin1_symbol" value="{{ this.coin_one.coin_symbol }}">
+                            <input type="hidden" name="coin2_symbol" value="{{ this.coin_two.coin_symbol }}">
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Start War</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+
+                </th>
+              {{/if}}
             </tr>
           {{/each}}
         {{else}}
@@ -72,5 +117,6 @@
       </tbody>
       <tfoot>
     </table>
+
   </div>
 </div>

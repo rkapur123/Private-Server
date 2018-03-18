@@ -35,13 +35,15 @@
       </nav>
     </header>
 
-    <main role="main" class="container">
-      {{#if error}}
-        <div class="alert alert-danger" role="alert">
-          {{ error }}
-        </div>
-      {{/if}}
-      {{{ body }}}
+    <main role="main" class="container-fluid">
+      <div style="margin-top: 60px;">
+        {{#if error}}
+          <div class="alert alert-danger" role="alert" style="margin-top: 80px;">
+            {{ error }}
+          </div>
+        {{/if}}
+        {{{ body }}}
+      </div>
     </main>
 
     <footer class="footer">
