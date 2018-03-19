@@ -66,6 +66,7 @@ module.exports = function(router, game) {
   router.post('/wars/edit', async function(req, res, next) {
     const {
       id,
+      gas,
       coin1_symbol,
       coin2_symbol,
       coin1_address,
@@ -80,33 +81,41 @@ module.exports = function(router, game) {
     }
 
     try {
+      // create coinwar instance
       const coinWarInstance = await game.coinwars.deployed(
         coin1_address,
         coin2_address,
         from_block,
         to_block
       )
+
+      // create war factory instance
       const warFactoryInstance = await game.warfactory.deployed()
-      warFactoryInstance.createCoinWar(
+
+      // add coin war to factory
+      const cW = await warFactoryInstance.createCoinWar(
           `${coin1_symbol} ${coin2_symbol}`,
           coinWarInstance.address,
-          { from: `${game.address}`, gas: 5000000 }
-        ).then(function(result) {
-          console.log(result)
-          // update war
-          War.findByIdAndUpdate(id, _update, async function(err) {
-            res.redirect('/wars')
-          })
-        }).catch(function(error) {
-          console.log(error)
-          req.session.error = 'Unable to start war !'
-          return res.redirect('/wars')
+          id, { from: `${game.address}`, gas: `${gas}` })
+
+      // listen to start war event
+      warFactoryInstance.NewWarStarted()
+        .watch(async function(error, result) {
+          console.log('Event Triggered',result.args.warID)
+          await War.findByIdAndUpdate(id, _update)
+          res.redirect('/wars')
         })
+
       } catch(e) {
         console.log(e)
-        req.session.error = 'Unable to start war !'
-        return res.redirect('/wars')
+        req.session.error = `Unable to start war ! ${e.message}`
+        res.redirect('/wars')
       }
+  })
+
+  router.get('/wars/deleteall', async function(req, res) {
+    await War.remove({})
+    res.redirect('/wars')
   })
 
 }

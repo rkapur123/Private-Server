@@ -41,7 +41,7 @@ describe('Create a new war', () => {
             '0x627306090abaB3A6e1400e9345bC60c78a8BEf57',
             0, 0)
           const warFactoryInstance = await game.warfactory.deployed()
-          warFactoryInstance.CreateCoinWar(
+          warFactoryInstance.createCoinWar(
             "EOS TRON",
             coinWarInstance.address,
             { from: `${game.address}`, gas: 5000000 }
@@ -56,7 +56,7 @@ describe('Create a new war', () => {
           console.log(e)
           done()
         }
-        
+
       })
 
     })

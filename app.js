@@ -7,6 +7,8 @@ const methodOverride = require('method-override')
 const mongoose = require('mongoose')
 const hbs = require('express-handlebars')
 const expressSession = require('express-session')
+const passport = require('passport')
+const cors = require('cors')
 
 const PORT = process.env.PORT || 3000
 
@@ -47,10 +49,12 @@ app.use(expressSession({
   saveUninitialized: false,
   resave: false
 }))
+app.use(passport.initialize())
+app.use(cors())
 
 // initialize the game
 const game = require('./game')
-game.init()
+app.use(game.init())
 
 // app routes
 var router = express.Router()
@@ -59,6 +63,8 @@ app.use('/', router)
 // non auth routes
 require('./routes/index')(router)
 require('./routes/war')(router, game)
+require('./routes/user')(router)
+require('./routes/user')(router, passport, game)
 
 app.listen(PORT, function() {
   console.log(`CoinWar private server start on port ${PORT}`)

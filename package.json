@@ -4,9 +4,8 @@
   "description": "Private server for coinwar ethereum game",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js",
-    "test": "mocha --timeout 10000"
+    "test": "mocha --timeout 10000",
+    "start": "nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -23,14 +22,19 @@
   },
   "homepage": "https://github.com/rkapurbh/Private-Server#readme",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.2",
     "cookie-parser": "^1.4.3",
+    "cors": "^2.8.4",
     "express": "^4.16.3",
     "express-handlebars": "^3.0.0",
     "express-session": "^1.15.6",
+    "jsonwebtoken": "^8.2.0",
     "method-override": "^2.3.10",
     "mongoose": "^5.0.10",
     "morgan": "^1.9.0",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
     "truffle-contract": "^3.0.4",
     "web3": "^0.20.6"
   },
