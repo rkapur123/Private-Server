@@ -28,6 +28,7 @@ const self = module.exports = {
 
       self.warfactory = TruffleContract(WarFactory)
       self.warfactory.setProvider(web3_provider)
+      console.log(self.warfactory.web3.eth)
 
       next()
     }
